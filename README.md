@@ -15,7 +15,7 @@ Instalação do Java, disponível no site da oracle (http://www.oracle.com)
 Para a importação das dependências do projeto é necessario ter o maven instalado junto a ide
 
 ## Detalhes da aplicação - Front End
-Angular 6
+Angular 6 (Websocket STOMP)
 
 ## Para executar a aplicação frontend local é nencessário:
 Instalação do node (https://nodejs.org)
@@ -35,16 +35,13 @@ Documentação so banckend com swagger. Para ter acesso à documentação gerada
 # O que falta implementar:
 Disponibilizar a aplicação funcionando em algum serviço de nuvem (Heroku, AWS, etc)
 
-Criar solicitação de amizade.
+Criar solicitação de amizade (Em um primeiro momento o usuário pode enviar mensagens para todos usuarios cadastrados).
 Bloqueio e desbloqueio de usuários.
 Edição de mensagens enviadas.
 Envio de mensagens de imagem, áudio e vídeo.
-Atualizar a lista de contatos onlines/offlines quando um usuário desconectar.
-Bloqueio de contatos.
-Envio de imagens e videos.
-Envio de mensagens para todos os usuários.
 Testes unitários.
 
 # Melhorias
 Filtros dos CORS e do spring security
 Refatorar principalmente a Classe TokenAuthenticationService
+Atualizar a lista de contatos onlines/offlines quando um usuário desconectar.
