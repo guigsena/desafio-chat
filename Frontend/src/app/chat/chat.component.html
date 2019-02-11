@@ -1,0 +1,73 @@
+
+<div class="container" >
+  <h3 class=" text-center"><button id="disconnect" class="btn btn-default" type="submit" [disabled]="disabled" (click)="disconnect()">Logout</button></h3>
+  <h1>{{usuarioLogado.nome}}</h1>
+  <div class="messaging">
+      <div class="inbox_msg">
+        <div class="inbox_people">
+          <div class="headind_srch">
+            <div class="recent_heading">
+              <h4>Usuários Online</h4>
+            </div>
+          </div>
+
+          <div class="inbox_chat">
+            <a *ngFor="let usu of usuarios" href="javascript:void(0)"  (click)="abrirConversa(usu.id)" id="{{'usu_' + usu.id}}">
+              <div class="chat_list" [title]="(usu.online)?'Online':'Offline'" id="{{'el_' + usu.id}}">
+                  <div class="chat_people">
+                      <div class="img_cont">
+                          <img src="assets/images/user-profile.png" class="rounded-circle user_img">
+                          <span [ngClass]="(usu.online)?'online_icon': 'online_icon offline'"></span>
+                      </div>
+                      <div class="chat_ib">
+                      <h5>{{usu.nome}}<span class="chat_date" *ngIf="usu.contMsgNaoLidas > 0">{{usu.contMsgNaoLidas}}</span></h5>
+                      <p></p>
+                      </div>
+                  </div>
+              </div>    
+            </a>           
+          </div>
+        </div>
+
+        <div class="mesgs" *ngIf="exibeMsg">
+          <div class="msg_history">
+            <div *ngFor="let msg of lstMensagens">
+              <div class="incoming_msg" *ngIf="msg.de.id != usuarioLogado.id">
+                <div class="incoming_msg_img"> <img src="assets/images/user-profile.png" > </div>
+                <div class="received_msg">
+                  <div class="received_withd_msg">
+                    <p>{{msg.conteudo}}</p>
+                    <span class="time_date"> {{msg.dataEnvio | date: 'HH:mm    |    dd/MM/yyyy' }}</span>
+                  </div>
+                </div>
+              </div> 
+              <div class="outgoing_msg" *ngIf="msg.de.id == usuarioLogado.id">
+                <div class="sent_msg">
+                    <p>{{msg.conteudo}}</p>
+                    <span class="time_date"> {{msg.dataEnvio | date: 'HH:mm    |    dd/MM/yyyy' }}</span>
+                </div>
+              </div>
+          </div>
+        </div>
+
+          <div class="input-group">
+            <textarea name="" class="form-control type_msg" [(ngModel)]="mensagem.conteudo" placeholder="Digite uma mensagem..."></textarea>
+            <div class="input-group-append">
+              <span class="input-group-text send_btn" (click)="sendMsg()"><i class="fas fa-location-arrow"></i></span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+      
+    </div>
+
+
+
+
+
+  
+
+    
+  
+</div>

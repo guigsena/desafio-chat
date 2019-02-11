@@ -1,0 +1,42 @@
+<div class="container">
+    <div id="divMsg" role="alert"></div>
+	<div class="row justify-content-center">
+		<div class="col-12 col-md-8 col-lg-6 pb-5">
+                <div class="card rounded-0">
+              <div class="card-header p-0">
+                  <div class="bg-info text-white text-center py-2">
+                      <h3><i class="fa fa-sign-in-alt"></i> Login</h3>
+                  </div>
+              </div>
+              <div class="card-body p-2">
+                  <div class="form-group">
+                    <div class="input-group mb-2">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text"><i class="fa fa-user text-info"></i></div>
+                        </div>
+                        
+                        <input type="text" name="email" [(ngModel)]="usuario.email" id="email" class="form-control" required placeholder="E-mail">
+                    </div>
+                </div>
+                  <div class="form-group">
+                      <div class="input-group mb-2">
+                          <div class="input-group-prepend">
+                              <div class="input-group-text"><i class="fa fa-lock text-info"></i></div>
+                          </div>
+                          
+                        <input type="password" [(ngModel)]="usuario.senha" name="password" id="password" class="form-control" required placeholder="Senha">
+                      </div>
+                  </div>
+                  <div class="form-group text-right">
+                    <a href="javascript:void(0);" (click)="novoCadastro()">Cadastre-se aqui!</a>                               
+                </div>
+                  
+                  <div class="text-center">
+                    <input type="button" (click)="logar()" name="logar" class="btn btn-info btn-md" value="Entrar">
+                  </div>
+              </div>
+
+          </div>
+    </div>
+	</div>
+</div>
