@@ -7,7 +7,7 @@ import org.springframework.web.socket.config.annotation.EnableWebSocketMessageBr
 import org.springframework.web.socket.config.annotation.StompEndpointRegistry;
 import org.springframework.web.socket.config.annotation.WebSocketMessageBrokerConfigurer;
 
-import com.gps.controller.WebSocketEventListener;
+import com.gps.controller.WebSocketConnectEventListener;
 import com.gps.model.SocketSessionRegistry;
 
 /**
@@ -46,8 +46,8 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
 	}
 	
 	@Bean
-	public WebSocketEventListener STOMPConnectEventListener(){
-		return new WebSocketEventListener();
+	public WebSocketConnectEventListener STOMPConnectEventListener(){
+		return new WebSocketConnectEventListener();
 	}
 	
 }

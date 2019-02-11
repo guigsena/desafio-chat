@@ -2,6 +2,7 @@ package com.gps.controller;
 
 import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -53,7 +54,11 @@ public class UsuarioController {
 				usuario.setOnline(true);
 			}
 		}
-		return lstUsu;
+		//Ordenar pelos usuários online
+		List<Usuario> list = (List<Usuario>) lstUsu;
+		list.sort( (o1, o2) -> Boolean.compare(o2.isOnline(), o1.isOnline()));
+		
+		return list;
 	}
 	
 	@ApiOperation(value = "Recupera todas as mensagens trocadas entre dois usuários")

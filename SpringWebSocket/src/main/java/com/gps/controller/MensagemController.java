@@ -6,6 +6,8 @@ import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.MessageExceptionHandler;
 import org.springframework.messaging.handler.annotation.MessageMapping;
+import org.springframework.messaging.handler.annotation.Payload;
+import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.messaging.simp.SimpMessageHeaderAccessor;
 import org.springframework.messaging.simp.SimpMessageSendingOperations;
 import org.springframework.messaging.simp.SimpMessageType;
@@ -64,6 +66,12 @@ public class MensagemController {
 	@SendToUser("/queue/errors")
 	public String handleException(Throwable exception) {
 	    return exception.getMessage();
+	}
+    
+    @MessageMapping("/atualizalista")
+    @SendTo("/topic/reply")
+	public String processMessageFromClient(@Payload String message) throws Exception {
+		return "Atualiza lista";
 	}
 	
 	/**
