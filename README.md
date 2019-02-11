@@ -28,12 +28,17 @@ Para inicializar o frontend é necessário a execução do seguinte comando (ng 
 
 Cadastro de usuários (email, nome e telefone)
 Uma tela de login para que o usuário cadastrado acesse a aplicação. O sistema já inicia com dois usuários cadastros previamente (joaopedro@gmail.com, "anamaria@gmail.com") ambos com a senha 123.
-Ao logar o usuário automaticamente tem acesso ao chat, contendo a direita todos os usuarios cadastrados demonstrando quais estão online e quais não estão.
+Ao logar o usuário automaticamente tem acesso ao chat, contendo a direita todos os usuarios cadastrados (lista de contatos) demonstrando quais estão online e quais não estão.
 Ao clicar em um usuário é possivel enviar uma mensagem especifica para ele.
 Documentação so banckend com swagger. Para ter acesso à documentação gerada basta acessar o link(http://localhost:8080/swagger-ui.html)
 
 # O que falta implementar:
+Disponibilizar a aplicação funcionando em algum serviço de nuvem (Heroku, AWS, etc)
 
+Criar solicitação de amizade.
+Bloqueio e desbloqueio de usuários.
+Edição de mensagens enviadas.
+Envio de mensagens de imagem, áudio e vídeo.
 Atualizar a lista de contatos onlines/offlines quando um usuário desconectar.
 Bloqueio de contatos.
 Envio de imagens e videos.
