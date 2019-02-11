@@ -33,6 +33,9 @@ Ao clicar em um usuário é possivel enviar uma mensagem especifica para ele.
 
 O que falta implementar:
 
+Atualizar a lista de contatos onlines/offlines quando um usuário desconectar.
 Bloqueio de contatos.
 Envio de imagens e videos.
 Envio de mensagens para todos os usuários.
+Testes unitários.
+Documentação com swagger
