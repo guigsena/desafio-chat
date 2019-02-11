@@ -12,6 +12,12 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.filter.GenericFilterBean;
 
+/**
+ * filtro que insere cabecalho nas requisoes para que o brownser 
+ * nao bloqueie as requisicoes de origem diferente (angular/ java)
+ * @author guilherme sena
+ *
+ */
 public class JWTAuthenticationFilter extends GenericFilterBean {
 
 	@Value("${app.http.filter.cors.origin:*}")

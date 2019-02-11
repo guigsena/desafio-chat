@@ -17,6 +17,11 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
 
+/**
+ * Configuracoes de seguracao das requisicoes rest'sdo sistema
+ * @author guilherme sena
+ *
+ */
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter  {
@@ -26,7 +31,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter  {
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         CorsConfiguration config = new CorsConfiguration();
         config.setAllowCredentials(true);
-        config.addAllowedOrigin("*");  // TODO: lock down before deploying
+        config.addAllowedOrigin("*");
         config.addAllowedHeader("*");
         config.addExposedHeader(HttpHeaders.AUTHORIZATION);
         config.addAllowedMethod("*");
@@ -37,7 +42,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter  {
     @Bean
     public JwtSignInFilter signInFilter() throws Exception {
         return new JwtSignInFilter(
-            new AntPathRequestMatcher("/sign-in"),
+            new AntPathRequestMatcher("/log-in"),
             authenticationManager()
         );
     }
@@ -82,42 +87,5 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter  {
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
-	/*
-	@Bean
-	JWTAuthenticationFilter corsFilter() {
-		JWTAuthenticationFilter filter = new JWTAuthenticationFilter();
-        return filter;
-    }
-
-
-	@Override
-	protected void configure(HttpSecurity httpSecurity) throws Exception {
-		//.authorizeRequests().antMatchers("/api/salvar-usuario", "/api/login").permitAll()
-		httpSecurity.csrf().disable().authorizeRequests()
-		//.ignoring().antMatchers(HttpMethod.OPTIONS, "/**")
-		.antMatchers("/api/salvar-usuario").permitAll()
-		.antMatchers(HttpMethod.OPTIONS, "/api/login").permitAll()
-		.antMatchers(HttpMethod.POST,"/api/login").permitAll()
-		//.anyRequest().authenticated()
-		.and()
-
-		// filtra requisições de login
-		.addFilterBefore(new JWTLoginFilter("/api/login", authenticationManager()),
-				UsernamePasswordAuthenticationFilter.class)
-
-		// filtra outras requisições para verificar a presença do JWT no header
-		.addFilterBefore(new JWTAuthenticationFilter(),
-				UsernamePasswordAuthenticationFilter.class);
-	}
-
-	@Override
-	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-		// cria uma conta default
-		auth.inMemoryAuthentication()
-		.withUser("admin")
-		.password("password")
-		.
-
-		roles("ADMIN");
-	}*/
+	
 }

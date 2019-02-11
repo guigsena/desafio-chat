@@ -8,6 +8,11 @@ import org.springframework.web.socket.messaging.SessionConnectEvent;
 
 import com.gps.model.SocketSessionRegistry;
 
+/**
+ * Listener que registra cada acesso do usuario
+ * @author Guilherme Sena
+ *
+ */
 @Component
 public class WebSocketEventListener implements ApplicationListener<SessionConnectEvent> {
 	@Autowired
@@ -20,7 +25,7 @@ public class WebSocketEventListener implements ApplicationListener<SessionConnec
 	    String agentId = sha.getNativeHeader("Login").get(0);
 	    String sessionId = sha.getSessionId();
 	
-	    /** add new session to registry */
+	    /** Registra a sessao pelo id do usuario */
 	    webAgentSessionRegistry.registerSessionId(agentId, sessionId);
 	
 	}

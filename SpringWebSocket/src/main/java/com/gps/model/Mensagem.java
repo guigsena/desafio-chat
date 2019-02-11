@@ -27,7 +27,6 @@ public class Mensagem {
     
     public Mensagem() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	public String getConteudo() {

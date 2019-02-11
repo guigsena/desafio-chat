@@ -22,6 +22,22 @@ public class TokenAuthenticationService {
 	static final String TOKEN_PREFIX = "Bearer";
 	static final String HEADER_STRING = "Authorization";
 
+	/**
+	 * Gera token jwt
+	 * @param usuario
+	 * @return
+	 */
+	public static String generateJWT(Usuario usuario) {
+		String JWT = Jwts.builder()
+				.setSubject(usuario.getId().toString())
+				.setExpiration(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
+				.claim("nome", usuario.getNome())
+				.signWith(SignatureAlgorithm.HS512, SECRET)
+				.compact();
+
+		return JWT;
+	}
+	
 	static void addAuthentication(HttpServletResponse response, String username) {
 		String JWT = Jwts.builder()
 				.setSubject(username)
@@ -32,18 +48,6 @@ public class TokenAuthenticationService {
 		response.addHeader(HEADER_STRING, TOKEN_PREFIX + " " + JWT);
 	}
 	
-	public static String generateJWT(Usuario usuario) {
-		String JWT = Jwts.builder()
-				.setSubject(usuario.getId().toString())
-				.setExpiration(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
-				//.claim("id", usuario.getId())
-				.claim("nome", usuario.getNome())
-				.signWith(SignatureAlgorithm.HS512, SECRET)
-				.compact();
-
-		return JWT;
-	}
-
 	static Authentication getAuthentication(HttpServletRequest request) {
 		String token = request.getHeader(HEADER_STRING);
 

@@ -19,6 +19,11 @@ import com.gps.model.Usuario;
 import com.gps.repository.MensagemRepository;
 import com.gps.repository.UsuarioRepository;
 
+/**
+ * Controle de rests e chamadas via socket a entidade usuario
+ * @author Guilherme Sena
+ *
+ */
 @CrossOrigin(origins = "http://localhost:4200", maxAge = 3600)
 @RestController
 @RequestMapping({"/api"})

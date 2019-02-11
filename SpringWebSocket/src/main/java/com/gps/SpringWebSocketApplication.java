@@ -17,16 +17,20 @@ public class SpringWebSocketApplication {
 		SpringApplication.run(SpringWebSocketApplication.class, args);
 	}
 	
-	
+	/**
+	 * Insere alguns registros ao inicalizar o sistema
+	 * @param repository
+	 * @return
+	 */
 	@Bean
     ApplicationRunner init(UsuarioRepository repository) {
         return args -> {
-            Stream.of("Joao Pedro", "Ana Maria", "Jose", "Fernanda Faria", "Guilherme Sena",
-                       "Alyne Silva").forEach(name -> {
+            Stream.of("Joao Pedro", "Ana Maria").forEach(name -> {
                 Usuario usu = new Usuario();
                 usu.setNome(name);
                 usu.setEmail(name.replaceAll(" ", "").toLowerCase() + "@gmail.com");
                 usu.setSenha("123");
+                usu.setSenha(usu.senhaCriptografada());
                 repository.save(usu);
             });
         };

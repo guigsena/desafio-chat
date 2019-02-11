@@ -8,41 +8,33 @@ import java.util.concurrent.CopyOnWriteArraySet;
 
 import org.springframework.util.Assert;
 
+/**
+ * Objeto que registra sessao do usuario
+ * @author guilherme sena
+ *
+ */
+@SuppressWarnings({"unchecked", "rawtypes"})
 public class SocketSessionRegistry {
+	
 	private final ConcurrentMap<String, Set<String>> userSessionIds = new ConcurrentHashMap();
+	
 	private final Object lock = new Object();
 
 	public SocketSessionRegistry() {
 	}
 
-	/**
-	 *
-	 * 获取sessionId
-	 * @param user
-	 * @return
-	 */
 	public Set<String> getSessionIds(String user) {
 		Set set = (Set)this.userSessionIds.get(user);
 		return set != null?set: Collections.emptySet();
 	}
 
-	/**
-	 * 获取所有session
-	 * @return
-	 */
 	public ConcurrentMap<String, Set<String>> getAllSessionIds() {
 		return this.userSessionIds;
 	}
 
-	/**
-	 * register session
-	 * @param user
-	 * @param sessionId
-	 */
 	public void registerSessionId(String user, String sessionId) {
-		Assert.notNull(user, "User must not be null");
-		Assert.notNull(sessionId, "Session ID must not be null");
-		Object var3 = this.lock;
+		Assert.notNull(user, "Usuário não pode ser nulo");
+		Assert.notNull(sessionId, "Id da sessão não pode ser nulo");
 		synchronized(this.lock) {
 			Object set = (Set)this.userSessionIds.get(user);
 			if(set == null) {
@@ -59,9 +51,8 @@ public class SocketSessionRegistry {
 	}
 
 	public void unregisterSessionId(String userName, String sessionId) {
-		Assert.notNull(userName, "User Name must not be null");
-		Assert.notNull(sessionId, "Session ID must not be null");
-		Object var3 = this.lock;
+		Assert.notNull(userName, "Usuário não pode ser nulo");
+		Assert.notNull(sessionId, "Id da sessão não pode ser nulo");
 		synchronized(this.lock) {
 			Set set = (Set)this.userSessionIds.get(userName);
 			if(set != null && set.remove(sessionId) && set.isEmpty()) {
