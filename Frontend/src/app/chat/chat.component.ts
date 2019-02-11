@@ -101,7 +101,14 @@ export class ChatComponent implements OnInit {
       _this.stompClient.subscribe('/user/queue/errors', function(message) {
         this.mensagem = new Mensagem();
         console.log('Error ' + message.body);
-    });
+      });
+
+      //ATUALIZA LISTA DE USUARIOS
+      _this.stompClient.subscribe('/topic/reply', function(message) {
+        _this.recuperaTodosUsuarios();
+      });
+
+      _this.atualizaUsuariosLogados();
 
       _this.stompClient.subscribe('/user/queue/reply', function(message) {
         if (JSON.parse(message.body).de.id === _this.idUsuarioDestino) {
@@ -147,6 +154,13 @@ export class ChatComponent implements OnInit {
   addMsg(message) {
     this.lstMensagens.push(message);
   }
+
+  atualizaUsuariosLogados() {
+      const data = JSON.stringify({
+        'name' : this.usuarioLogado.nome
+      });
+      this.stompClient.send('/app/atualizalista', {}, data);
+    }
 
   atualizaMsgParaLida() {
     this.usuarioService.updateMsgLida(this.idUsuarioDestino, this.usuarioLogado.id).subscribe(
