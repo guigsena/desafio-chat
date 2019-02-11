@@ -16,6 +16,8 @@ import com.gps.model.Mensagem;
 import com.gps.model.SocketSessionRegistry;
 import com.gps.repository.MensagemRepository;
 
+import io.swagger.annotations.ApiOperation;
+
 /**
  * Controle de rests e chamadas via socket a entidade mensagem
  * @author Guilherme Sena
@@ -36,6 +38,7 @@ public class MensagemController {
 		this.mensagemRepository = mensagemRepository;
 	}
 
+    @ApiOperation(value = "Envia mensagem para um determinado usuario")
 	@MessageMapping("/message")
 	public void processMessageFromClient(SimpMessageHeaderAccessor headerAccessor, Mensagem message) {
     	//recuepra qual a sessao do usuario
@@ -56,6 +59,7 @@ public class MensagemController {
 	    mensagemRepository.save(message);
 	}
 	 
+    @ApiOperation(value = "Caso aconteça algum erro e o websocket não consiga retornar a mensagem para o usuário")
 	@MessageExceptionHandler
 	@SendToUser("/queue/errors")
 	public String handleException(Throwable exception) {

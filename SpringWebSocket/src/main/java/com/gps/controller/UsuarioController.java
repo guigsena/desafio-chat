@@ -19,6 +19,8 @@ import com.gps.model.Usuario;
 import com.gps.repository.MensagemRepository;
 import com.gps.repository.UsuarioRepository;
 
+import io.swagger.annotations.ApiOperation;
+
 /**
  * Controle de rests e chamadas via socket a entidade usuario
  * @author Guilherme Sena
@@ -42,7 +44,7 @@ public class UsuarioController {
     }
 	
 	
-	
+	@ApiOperation(value = "Recupera todos usuários logados na aplicação")
 	@GetMapping("/todos-contatos/{idOrigem}")
 	public Collection<Usuario> todosContatos(@PathVariable(value="idOrigem")Long idOrigem) {
 		Collection<Usuario> lstUsu = usuarioRepository.findUsuariosCountMsgEnviadas(idOrigem);
@@ -54,18 +56,21 @@ public class UsuarioController {
 		return lstUsu;
 	}
 	
+	@ApiOperation(value = "Recupera todas as mensagens trocadas entre dois usuários")
 	@GetMapping("/todas-mensagens/{idOrigem}/{idDestino}")
 	public Collection<Mensagem> todasMensagens(@PathVariable(value="idOrigem")Long idOrigem, @PathVariable(value="idDestino")Long idDestino) {
 		Collection<Mensagem> lstMsg = mensagemRepository.findByUsuarioOrigemDestino(idOrigem, idDestino);
 		return lstMsg;
 	}
 
+	@ApiOperation(value = "Cria um novo usuário")
 	@PostMapping("/salvar-usuario")
 	public Usuario salvar(@RequestBody Usuario usuario) {
 		usuario.setSenha(usuario.senhaCriptografada());
 	    return usuarioRepository.saveAndFlush(usuario);
 	}
 	
+	@ApiOperation(value = "Valida se usuario e senha são validos e retorna para o frontend o token de acesso caso o login seja válido")
 	@PostMapping("/login")
 	public String login(@RequestBody Usuario usuario) {
 	    String token = null;
@@ -77,6 +82,7 @@ public class UsuarioController {
 	    return token;
 	}
 	
+	@ApiOperation(value = "Adiciona data de leitura à mensagem logo que o usuário realiza a leitura")
 	@GetMapping("/update_msg-Lida/{idEnviou}/{idLeu}")
 	public boolean updateMsgLida(@PathVariable(value="idEnviou")Long idEnviou, @PathVariable(value="idLeu")Long idLeu) {
 		boolean retorno = true;

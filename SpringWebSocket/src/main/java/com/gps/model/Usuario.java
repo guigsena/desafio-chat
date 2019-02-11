@@ -3,6 +3,7 @@ package com.gps.model;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Table;
 import javax.persistence.Transient;
 
 import org.springframework.lang.NonNull;
@@ -10,6 +11,7 @@ import org.springframework.lang.NonNull;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Entity
+@Table(name = "usuario")
 public class Usuario {
 	@Id @GeneratedValue
 	private Long id;
