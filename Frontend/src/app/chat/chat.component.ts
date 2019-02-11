@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import * as Stomp from '@stomp/stompjs';
 import * as SockJS from 'sockjs-client';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { UsuarioService } from '../services/usuario.service';
 import { Mensagem } from '../model/mensagem';
 import { Usuario } from '../model/usuario';
@@ -29,7 +29,8 @@ export class ChatComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private usuarioService: UsuarioService,
-    private mensagemService: MensagemService
+    private mensagemService: MensagemService,
+    private router: Router
     ) {
   }
 
@@ -88,7 +89,7 @@ export class ChatComponent implements OnInit {
   }
 
   connect() {
-    const socket = new SockJS('http://localhost:8080/ws');
+    const socket = new SockJS('http://localhost:8080/api/ws');
     this.stompClient = Stomp.over(socket);
 
     const _this = this;
@@ -96,17 +97,6 @@ export class ChatComponent implements OnInit {
       this.stompClient.connect( {'Login': this.usuarioLogado.id}, function (frame) {
       _this.setConnected(true);
 
-      /*_this.stompClient.subscribe('/topic/hi', function (hello) {
-        _this.showGreeting(JSON.parse(hello.body).greeting);
-      });
-
-      _this.stompClient.subscribe('/topic/connect/' + this.theUserId, function (data) {
-        alert(this.theUserId);
-      });
-
-      _this.stompClient.subscribe('/topic/public', function (chatMessage) {
-        _this.usuariosConectados(JSON.parse(chatMessage.body).sender);
-      });*/
 
       _this.stompClient.subscribe('/user/queue/errors', function(message) {
         this.mensagem = new Mensagem();
@@ -132,6 +122,7 @@ export class ChatComponent implements OnInit {
     //REMOVE TOKEN
     localStorage.removeItem('token');
     console.log('Desconectado!');
+    this.router.navigate(['/login']);
   }
 
   sendMsg() {
